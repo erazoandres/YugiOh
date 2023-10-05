@@ -90,10 +90,6 @@ cartas_reveladas = []
 
 while ejecutando:
 
-    if len(cartas_reveladas) == 12:
-        print("GANASTE")
-        break
-
     # DIBUJA LA PANTALLA
     for i, carta in enumerate(cartas):
         fila, columna = divmod(i, 4)  # Ahora tenemos 4 columnas
@@ -107,15 +103,17 @@ while ejecutando:
             if len(cartas_seleccionadas) < 2:
                 indice = obtener_indice_carta_clic(evento.pos)
                 posibles_indices_acertados.append(indice)
+        
                 if indice is not None and indice not in cartas_seleccionadas:
                     cartas_seleccionadas.append(cartas[indice].id_get())
+
+                   
                     cartas[indice].voltear()
 
                     if len(cartas_seleccionadas) == 2:
                         if cartas_seleccionadas[0] == cartas_seleccionadas[1]:
                             
                             print("Iguales")
-                            print(posibles_indices_acertados)
                             cartas_reveladas.extend(posibles_indices_acertados)
                             
                            
@@ -127,9 +125,19 @@ while ejecutando:
                     if count_aux not in cartas_reveladas:
                         carta.volteada = False
                     count_aux+=1
+
+                print(len(cartas_reveladas))
+                if len(cartas_reveladas) >= 12:
+                    print("GANASTE")
+                    break
+
                 cartas_seleccionadas = []
                 posibles_indices_acertados = []
 
+
+    
+    
+        
     
 
     pygame.display.flip()
