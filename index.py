@@ -36,10 +36,7 @@ class Carta:
         if self.volteada:
             screen.blit(self.imagen, pos)
         else:
-            # Dibujar una superficie oscura sobre la carta
-            superficie_oscura = pygame.Surface((100, 150))
-            superficie_oscura.fill(NEGRO)
-            superficie_oscura.set_alpha(128)  # Establecer transparencia
+            screen.blit(silueta, pos)
 
     def id_set(self,data):
         self.id = data
@@ -49,7 +46,7 @@ class Carta:
 
 
 # Cargar las imágenes de las cartas
-silueta = pygame.image.load("carta.png"),
+silueta = pygame.image.load("carta.png")
 
 imagenes_cartas = {
     "dragon": pygame.image.load("dragon.png"),
