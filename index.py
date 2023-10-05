@@ -1,3 +1,4 @@
+#LIBRERIAS
 import pygame
 import random
 import os
@@ -64,7 +65,7 @@ for i in range(len(cartas)):
     for j in range(3):
         cartas.append(copy.copy(cartas[i]))
 
-# Mezclar las cartas
+# Mezclar la lista con las cartas
 random.shuffle(cartas)  
 
 
@@ -78,36 +79,58 @@ def obtener_indice_carta_clic(mouse_pos):
             return i
     return None
 
+
+#BLOQUE PRINCIPAL
+
 ejecutando = True
 cartas_seleccionadas = []
+posibles_indices_acertados = []
+cartas_reveladas = []
 
 
 while ejecutando:
+
+    if len(cartas_reveladas) == 12:
+        print("GANASTE")
+        break
+
+    # DIBUJA LA PANTALLA
+    for i, carta in enumerate(cartas):
+        fila, columna = divmod(i, 4)  # Ahora tenemos 4 columnas
+        x, y = columna * 100, fila * 150  # Espaciado entre cartas
+        carta.dibujar((x, y))
+
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             ejecutando = False
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             if len(cartas_seleccionadas) < 2:
                 indice = obtener_indice_carta_clic(evento.pos)
+                posibles_indices_acertados.append(indice)
                 if indice is not None and indice not in cartas_seleccionadas:
                     cartas_seleccionadas.append(cartas[indice].id_get())
                     cartas[indice].voltear()
 
                     if len(cartas_seleccionadas) == 2:
-                        if cartas_seleccionadas[0] == cartas_seleccionadas[1] :
+                        if cartas_seleccionadas[0] == cartas_seleccionadas[1]:
+                            
                             print("Iguales")
-   
+                            print(posibles_indices_acertados)
+                            cartas_reveladas.extend(posibles_indices_acertados)
+                            
+                           
             else:
-         
-                for carta in cartas:
-                    carta.volteada = False
-                cartas_seleccionadas = []
 
-    # Actualizar la pantalla
-    for i, carta in enumerate(cartas):
-        fila, columna = divmod(i, 4)  # Ahora tenemos 4 columnas
-        x, y = columna * 100, fila * 150  # Espaciado entre cartas
-        carta.dibujar((x, y))
+    
+                count_aux = 0
+                for carta in cartas:
+                    if count_aux not in cartas_reveladas:
+                        carta.volteada = False
+                    count_aux+=1
+                cartas_seleccionadas = []
+                posibles_indices_acertados = []
+
+    
 
     pygame.display.flip()
 
