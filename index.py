@@ -29,6 +29,12 @@ class Carta:
         self.volteada = False
         self.id = -1
 
+    @classmethod
+    def afectar_atributo(self):
+        for obj in self.__subclasses__():
+            print("Se supone que se reinicio")
+            obj.voltear = False
+
     def voltear(self):
         self.volteada = True
 
@@ -116,13 +122,21 @@ while ejecutando:
     if len(cartas_seleccionadas) == 2:
         
         indice1, indice2 = cartas_seleccionadas
+        
 
         if indice1 == indice2:
             print("Las cartas son iguales")
+            
+            
             # Las cartas son iguales, eliminarlas
             # cartas[indice1] = None
             # cartas[indice2] = None
+        else:
+            print("No son iguales")
+
+        Carta.afectar_atributo()
         cartas_seleccionadas = []
+        
 
 # Salir del juego
 pygame.quit()
