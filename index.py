@@ -1,12 +1,15 @@
 import pygame
 import random
 import os
+import copy
 
 
 # Definir colores
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
 VERDE = (0,255,255)
+
+NAME_TEMP = ""
 
 # Configuración de la ventana
 pygame.init()
@@ -64,6 +67,14 @@ for img in imagenes_cartas:
     cartas[count].id_set(img)
     count+=1
 
+
+#RELLENAMOS CON MAS CARTAS
+for i in range(len(cartas)):
+    for j in range(3):
+        cartas.append(copy.copy(cartas[i]))
+            
+
+
 random.shuffle(cartas)  # Mezclar las cartas
 
 def obtener_indice_carta_clic(mouse_pos):
@@ -74,8 +85,7 @@ def obtener_indice_carta_clic(mouse_pos):
        
         
         if rect_carta.collidepoint(mouse_pos):
-            # print(cartas[0].id_get())
-            # print(cartas[i].id_get())
+            # print(cartas[0].id_get())            
             return i
     return None
 
@@ -88,11 +98,12 @@ while ejecutando:
             ejecutando = False
         elif evento.type == pygame.MOUSEBUTTONDOWN:
             if len(cartas_seleccionadas) < 2:
+
                 indice = obtener_indice_carta_clic(evento.pos)
               
                 if indice is not None and indice not in cartas_seleccionadas:
        
-                    cartas_seleccionadas.append(indice)
+                    cartas_seleccionadas.append(cartas[indice].id_get())
                     cartas[indice].voltear()
                   
 
@@ -109,11 +120,11 @@ while ejecutando:
         
         indice1, indice2 = cartas_seleccionadas
 
-        if cartas[indice1].imagen == cartas[indice2].imagen:
+        if indice1 == indice2:
             print("Las cartas son iguales")
             # Las cartas son iguales, eliminarlas
-            cartas[indice1] = None
-            cartas[indice2] = None
+            # cartas[indice1] = None
+            # cartas[indice2] = None
         cartas_seleccionadas = []
 
 # Salir del juego
