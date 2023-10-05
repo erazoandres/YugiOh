@@ -92,6 +92,10 @@ while ejecutando:
                 if indice is not None and indice not in cartas_seleccionadas:
                     cartas_seleccionadas.append(cartas[indice].id_get())
                     cartas[indice].voltear()
+
+                    if len(cartas_seleccionadas) == 2:
+                        if cartas_seleccionadas[0] == cartas_seleccionadas[1] :
+                            print("Iguales")
    
             else:
          
