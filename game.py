@@ -117,7 +117,7 @@ while ejecutando:
                 posibles_indices_acertados.append(indice)
 
                 # Aqui añadimos la carta si no ah sido seleccionada antes.
-                if indice is not None and indice not in cartas_seleccionadas:
+                if indice is not None and indice not in cartas_seleccionadas and not cartas[indice].volteada:
                     cartas_seleccionadas.append(cartas[indice].id_get())
 
                     # La mostramos
