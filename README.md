@@ -25,8 +25,16 @@ Este es un juego de memoria desarrollado en Pygame. El objetivo del juego es enc
 
 ## Contribuciones
 
-¡Las contribuciones son bienvenidas! Si encuentras algún error o tienes alguna mejora para el juego, no dudes en abrir un problema o enviar una solicitud de extracción.
+¡Las contribuciones son bienvenidas! Si encuentras algún error o tienes alguna mejora para el juego, no dudes en comentarme. :)
 
-## Licencia
 
-Este proyecto está bajo la Licencia MIT. Puedes obtener más información en el archivo [LICENSE](LICENSE).
+## Autoria
+
+Totalmente de mi autoria, hecho de 0 a 100.
+
+
+## Pendiente de mejoras.
+- Algunos detalles esteticos.
+- Añadir mas cartas.
+- Temporizador
+- Sistemas de guardado de puntajes.

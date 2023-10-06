@@ -9,6 +9,15 @@ WIDTH, HEIGHT = 400, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("BIenvenido")
 
+fondo = pygame.image.load("wall.png")
+fondo = pygame.transform.scale(fondo, (WIDTH, HEIGHT))
+
+pygame.mixer.music.load("soundtrack2.mp3")
+
+if not pygame.mixer.music.get_busy():
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.2)
+
 # Definir colores
 BLANCO = (255, 255, 255)
 NEGRO = (0, 0, 0)
@@ -25,7 +34,9 @@ def mostrar_menu():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if rect_x <= event.pos[0] <= 600 and rect_y <= event.pos[1] <= 300:
                     # Ejecutar el archivo index.py
-                    subprocess.run(["python", "index.py"])
+                    pygame.mixer.music.stop()
+                    pygame.quit()
+                    subprocess.run(["python", "main.py"])
                     running=False
                   
                
@@ -34,7 +45,7 @@ def mostrar_menu():
                     
 
         # Dibujar el fondo y los elementos del menú
-        screen.fill(BLANCO)
+        # screen.fill(BLANCO)
 
         # Coordenadas para centrar los rectángulos
         rect_x = WIDTH // 2 - 200
@@ -53,6 +64,8 @@ def mostrar_menu():
 
         # Actualizar la pantalla
         pygame.display.flip()
+
+screen.blit(fondo, (0, 0))
 
 # Llamar a la función para mostrar el menú
 mostrar_menu()
