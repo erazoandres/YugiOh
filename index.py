@@ -16,8 +16,9 @@ fondo = pygame.image.load("wall2.png")
 fondo = pygame.transform.scale(fondo, (WIDTH, HEIGHT))
 pygame.display.set_caption("Juego de Memoria")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-screen.fill(VERDE)
+screen.fill(NEGRO)
 os.environ['SDL_VIDEO_CENTERED'] = '1'
+font = pygame.font.Font(None, 76)
 
 # CLASE DE CARTA
 class Carta:
@@ -87,6 +88,7 @@ cartas_seleccionadas = []
 posibles_indices_acertados = []
 cartas_reveladas = []
 
+aux = 0
 
 while ejecutando:
 
@@ -100,7 +102,10 @@ while ejecutando:
         if evento.type == pygame.QUIT:
             ejecutando = False
         elif evento.type == pygame.MOUSEBUTTONDOWN:
+            aux +=1
+            print(aux)
             if len(cartas_seleccionadas) < 2:
+                print("cartas selecionadas",cartas_seleccionadas)
                 indice = obtener_indice_carta_clic(evento.pos)
                 posibles_indices_acertados.append(indice)
         
@@ -129,18 +134,17 @@ while ejecutando:
                 print(len(cartas_reveladas))
                 if len(cartas_reveladas) >= 12:
                     print("GANASTE")
+                    texto_victoria = font.render("¡Has ganado!", True, BLANCO)
+                    text_rect = texto_victoria.get_rect(center=(WIDTH // 2, HEIGHT // 2 ))
+                    screen.blit(texto_victoria, text_rect)
                     break
 
                 cartas_seleccionadas = []
                 posibles_indices_acertados = []
-
-
-    
-    
-        
     
 
     pygame.display.flip()
+    
 
 # Salir del juego
 pygame.quit()
