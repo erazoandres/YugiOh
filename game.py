@@ -146,6 +146,7 @@ while ejecutando:
                 # Verificamos cuantas cartas llevamos resueltas.
                 if len(cartas_reveladas) >= 12:
                     ejecutando = False
+                    pygame.quit()
                     subprocess.run(["python", "win.py"])
                    
                     
