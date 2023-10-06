@@ -3,6 +3,7 @@ import pygame # Libreria requerida como requerimiento.
 import random # para mezclar una lista.
 import os # para centrar ventana.
 import copy #para copiar objetos.
+import subprocess # para abrir otro archivo .py
 
 # Definir colores
 BLANCO = (255, 255, 255)
@@ -19,7 +20,6 @@ pygame.display.set_caption("YuGiOh Memories")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill(NEGRO)
 os.environ['SDL_VIDEO_CENTERED'] = '1'
-font = pygame.font.Font(None, 76)
 
 pygame.mixer.music.load("soundtrack.mp3")
 
@@ -79,7 +79,8 @@ random.shuffle(cartas)
 def obtener_indice_carta_clic(mouse_pos):
     for i, carta in enumerate(cartas):
         fila, columna = divmod(i, 4)  # Cambia 4 por el número de columnas que desees
-        x, y = columna * 100, fila * 150  # Espaciado entre cartas
+        x = columna * 100  # Espaciado horizontal entre cartas
+        y = (fila * 150) + ((HEIGHT - (len(cartas) // 4) * 150) // 2)
         rect_carta = pygame.Rect(x, y, 100, 150)  # Rectángulo que representa la carta
         if rect_carta.collidepoint(mouse_pos):
             return i
@@ -99,7 +100,7 @@ while ejecutando:
     for i, carta in enumerate(cartas):
         fila, columna = divmod(i, 4)  # Ahora tenemos 4 columnas
         x = columna * 100  # Espaciado horizontal entre cartas
-        y = (HEIGHT - (len(cartas) // 4) * 160) // 2 + fila * 160  # Centrar verticalmente las cartas
+        y = (fila * 150) + ((HEIGHT - (len(cartas) // 4) * 150) // 2)  # Centrar verticalmente las cartas
         carta.dibujar((x, y))
     
     # Resto del código del bucle principal
@@ -116,8 +117,8 @@ while ejecutando:
                 indice = obtener_indice_carta_clic(evento.pos)
                 posibles_indices_acertados.append(indice)
 
-                # Aqui añadimos la carta si no ah sido seleccionada antes.
-                if indice is not None and indice not in cartas_seleccionadas and not cartas[indice].volteada:
+                # Aqui añadimos la carta si no ah sido seleccionada antes y que no sea seleccion duplicada.
+                if indice is not None and indice not in cartas_seleccionadas:
                     cartas_seleccionadas.append(cartas[indice].id_get())
 
                     # La mostramos
@@ -144,11 +145,10 @@ while ejecutando:
 
                 # Verificamos cuantas cartas llevamos resueltas.
                 if len(cartas_reveladas) >= 12:
-                    print("GANASTE")
-                    texto_victoria = font.render("¡Has ganado!", True, BLANCO)
-                    text_rect = texto_victoria.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 220 ))
-                    screen.blit(texto_victoria, text_rect)
-                    break
+                    ejecutando = False
+                    subprocess.run(["python", "win.py"])
+                   
+                    
 
                 # Reiniciamos las listas dado que los valores que contienen 
                 # ya no son utiles dado que en este caso las 
