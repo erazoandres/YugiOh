@@ -14,7 +14,7 @@ pygame.init()
 WIDTH, HEIGHT = 400, 600
 fondo = pygame.image.load("wall2.png")
 fondo = pygame.transform.scale(fondo, (WIDTH, HEIGHT))
-pygame.display.set_caption("Juego de Memoria")
+pygame.display.set_caption("YuGiOh Memories")
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 screen.fill(NEGRO)
 os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -135,7 +135,7 @@ while ejecutando:
                 if len(cartas_reveladas) >= 12:
                     print("GANASTE")
                     texto_victoria = font.render("¡Has ganado!", True, BLANCO)
-                    text_rect = texto_victoria.get_rect(center=(WIDTH // 2, HEIGHT // 2 ))
+                    text_rect = texto_victoria.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 220 ))
                     screen.blit(texto_victoria, text_rect)
                     break
 

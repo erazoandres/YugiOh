@@ -7,7 +7,7 @@ pygame.init()
 # Configuración de la ventana
 WIDTH, HEIGHT = 400, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Menú de Juego")
+pygame.display.set_caption("BIenvenido")
 
 # Definir colores
 BLANCO = (255, 255, 255)
@@ -26,7 +26,8 @@ def mostrar_menu():
                 if rect_x <= event.pos[0] <= 600 and rect_y <= event.pos[1] <= 300:
                     # Ejecutar el archivo index.py
                     subprocess.run(["python", "index.py"])
-                    print(rect_y)
+                    running=False
+                  
                
                 elif rect_x <= event.pos[0] <= 600 and rect_y + 130 <= event.pos[1] <= rect_y+230:
                     running=False
